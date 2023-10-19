@@ -19,8 +19,8 @@ var bot tg.Bot
 
 func main() {
 	bot = tg.Bot{
-		Token: "5153280648:AAFwnyJrY_cVIOKcxNhp9amiZWRMP5bUWSc",
-		Chatid: "620180223",
+		Token: "0",
+		Chatid: "1",
 	}
 
 	checkUpdates()
