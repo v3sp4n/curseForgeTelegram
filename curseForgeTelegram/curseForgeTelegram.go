@@ -23,9 +23,18 @@ type users__struct struct {
 
 func main() {
 
+	if _,err := os.Stat("bot_token"); err != nil {
+		ioutil.WriteFile("bot_token",[]byte("12345578:BotTokenHere"),0644)
+		fmt.Println("enter bot token in file \"bot_token\"!")
+		for {
+
+		}
+		// return
+	}
+	token,_ := ioutil.ReadFile("bot_token")
 
 	bot = tg.Bot{
-		Token: "tokenbon",
+		Token: string(token),
 		Chatid: "none!",
 	}
 
@@ -45,7 +54,7 @@ func main() {
 		if !b {
 			users[chatid] = users__struct{}
 			users[chatid] = users__struct{
-				username: username,
+				Username: username,
 				PreviousMessageIdBot:  0,
 			}
 			usersSave()
@@ -135,7 +144,6 @@ dev vespan`,[][]map[string]string{})
 						l,_ := strconv.ParseInt(m[3],10,0)
 						limit = int(l)
 						limitBreak = limit + 50
-						fmt.Println("limit>",limit,"len files",len(files.Data))
 						res_inline_keyboard := [][]map[string]string{}
 						for f := 0; f < len(files.Data); f++ {
 							for g := 0; g < len(files.Data[f].GameVersions); g++ {
@@ -167,7 +175,9 @@ dev vespan`,[][]map[string]string{})
 						bot.DeleteMessage(pmib)
 
 						bot.SendMessage(m[3]+"\nlink download:\n" + fmt.Sprintf("https://www.curseforge.com/api/v1/mods/%s/files/%s/download",m[1],m[2]),[][]map[string]string{})
-
+						if _,err := os.Stat("temp/"); err != nil {
+							os.Mkdir("temp/",os.ModeDir)
+						}
 						cf.Download(m[1],m[2],m[3],"temp/")
 
 						bot.SendDocument("temp/"+m[3])
